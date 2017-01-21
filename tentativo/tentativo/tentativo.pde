@@ -1,6 +1,6 @@
 PImage cubetto;
-int NUM_COLONNE = 10;
-int NUM_RIGHE = 10;
+int NUM_COLONNE = 70;
+int NUM_RIGHE = 70;
 int TILESIZE = 65;
 
 Wave wave;
