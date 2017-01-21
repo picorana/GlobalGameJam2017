@@ -30,6 +30,8 @@ var wave
 var w = 800
 var h = 600
 
+var ell
+
 var lasttime
 function setup() {
   createCanvas(w, h);
@@ -41,8 +43,11 @@ function setup() {
   wave.p(30, 5).p=70
   wave.p(10, 30).p= -40
 
+  ell={p:[wave.x/2, floor(wave.y/2), 0], p_:[wave.x/2, floor(wave.y/2), 0], a:[0,0,0]}
+  ell.p[0]+=0.1
   lastime=millis()
 }
+
 
 
 
@@ -55,10 +60,10 @@ function draw() {
   }
   if(keyIsDown(RIGHT_ARROW)){
     var x=Math.floor(0.9*wave.x)
-    for(var y=Math.floor(0.3*wave.y); y<Math.ceil(0.7*wave.y); ++y){
+    for(var y=Math.floor(0.5*wave.y); y<Math.ceil(0.9*wave.y); ++y){
       wave.p(x, y).p+=15
     }
-    }
+  }
 //  console.log(keyCode)
 
   clear()
@@ -100,14 +105,41 @@ function draw() {
     }
   }
 
-  ellipse(50, 50, 80, 80);
+    for(var i =0; i<3; ++i){
+      var pn = 2*ell.p[i] - 1*ell.p_[i] + ell.a[i]*dt*dt
+      ell.p_[i]= ell.p[i]
+      ell.p[i] = pn
+    }
+
+    for(var i =0; i<3; ++i){
+      ell.a[i]=0
+    }
+
+    if(ell.p[2]<0){
+      ell.a[2]=10
+    }else{
+      ell.a[2]=-20
+    }
+
+    do{
+      var x=floor(ell.p[0])
+      var y=floor(wave.y/2)
+      var z = wave.p(x, y).p
+      if(z<ell.p[2]){
+        ell.p[2]=z
+      }
+    }while(false)  
+  
+
+  ellipse(w*ell.p[0]/wave.x, h/2+ell.p[2], 20)
+
   for(var y=0; y< wave.y; ++y){
     stroke(255-255*y/wave.y)
     for(var x=0; x<wave.x; ++x){
 
-//      rect(x*w/wave.x, y*h/wave.y + wave.p(x, y).p, 3, 3)
+//      rect(x*w/wave.x, y*h/wave.y + floor(wave.p(x, y).p/15)*15, 15, 15)
       if(x==0) continue
-      line((x-1)*w/wave.x, y*h/wave.y + wave.p(x-1, y).p, x*w/wave.x, y*h/wave.y + wave.p(x, y).p)
+      line((x-1)*w/wave.x, y*h/wave.y + floor(wave.p(x-1, y).p / 20)*20, x*w/wave.x, y*h/wave.y +floor(wave.p(x, y).p /20)*20)
 
 
     }
