@@ -1,70 +1,91 @@
-// The Nature of Code
-// <http://www.shiffman.net/teaching/nature>
-// Spring 2010
-// Box2DProcessing example
-
-// A fixed boundary class (now incorporates angle)
 
 class NewWaveFront {
-
-  // A boundary is a simple rectangle with x,y,width,and height
-  float x;
-  float y;
-  float w;
-  float h;
+  float s;
+  float bh = 10;
   
-  float step = 0;
-  float s =2;
-  float floor = 800;
-  // But we also have to make a body for box2d to know about it
-  Body b;
-  float wave[] = new float[30]; 
-  NewWaveFront() {
+  Wave wave;
+  int layer;
+  
+  Body bodies[];
+  PolygonShape shapes[];
+  Body anchor;
+  PrismaticJoint pistons[];
+  MouseJoint p_targets[];
+  NewWaveFront(Wave wave) {
 
+    this.wave = wave;
+    this.layer= round(wave.y/2);
+    s = (float)(width)/wave.x;
 
-    for (int i = 0; i< wave.length; i++)
+    System.out.println(s);
+
+    bodies=new Body[wave.x];
+    shapes=new PolygonShape[bodies.length];
+    pistons=new PrismaticJoint[bodies.length];
+    p_targets=new MouseJoint[bodies.length];
+    
     {
-      wave[i] = (float)(20*Math.sin(i/3.f)) +580;
-    }
-    // Define the polygon
-    s= width /wave.length;
-    // Figure out the box2d coordinates
-
-
-    // We're just a box
-
     BodyDef bd = new BodyDef();
-    bd.type = BodyType.KINEMATIC;
-    b = box2d.createBody(bd);
-    for (int i= 1; i<wave.length; ++i)
-    {
-      PolygonShape sd = new PolygonShape();
-      sd.setAsBox(box2d.scalarPixelsToWorld(s), box2d.scalarPixelsToWorld(200), new Vec2(box2d.coordPixelsToWorld(s*(i), wave[i])),0);
-      b.createFixture(sd, 1);
+    bd.type = BodyType.STATIC;
+    bd.position.set(box2d.coordPixelsToWorld(width/2, -height));
+    anchor = box2d.createBody(bd);
+    PolygonShape sh = new PolygonShape();
+    sh.setAsBox(box2d.scalarPixelsToWorld(width/2), box2d.scalarPixelsToWorld(5));
+    anchor.createFixture(sh, 1);
     }
+    for(int i= 0; i<bodies.length; ++i){
+      BodyDef bd = new BodyDef();
+      bd.type = BodyType.DYNAMIC;
 
+      bd.position.set(box2d.coordPixelsToWorld(s*i, wp(i)));
 
-
-
-    // Create the body
-
-
-    // Attached the shape to the body using a Fixture
+      bodies[i] = box2d.createBody(bd);
+      shapes[i] = new PolygonShape();
+      shapes[i].setAsBox(box2d.scalarPixelsToWorld(s/2), box2d.scalarPixelsToWorld(bh));
+      
+      bodies[i].createFixture(shapes[i], 1);
+      
+      PrismaticJointDef pjd= new PrismaticJointDef();
+      pjd.initialize(anchor, bodies[i], box2d.coordPixelsToWorld(s*i, height), new Vec2(0, 1));
+      pjd.enableLimit=false;
+      pjd.enableMotor=false;
+      pjd.collideConnected=false;
+      pistons[i] = (PrismaticJoint)box2d.createJoint(pjd);
+      
+      
+      MouseJointDef mjd = new MouseJointDef();
+      mjd.bodyB=bodies[i];
+      mjd.bodyA=anchor;
+      mjd.collideConnected=false;
+      //mjd.target=box2d.coordPixelsToWorld(s*i, wp(i));
+      mjd.maxForce=bodies[i].getMass()*1000;
+      mjd.dampingRatio=0.8;
+      p_targets[i]=(MouseJoint)box2d.createJoint(mjd);
+    }
   }
 
-  // Draw the boundary, if it were at an angle we'd have to do something fancier
+  float wp(int x){
+//    return 400;
+    return wave.p(x, layer)/10 + 800;
+  }
+
+  void update(){
+    wave.update(0.05); 
+    for(int i=0; i<bodies.length; ++i){
+        Vec2 pos=p_targets[i].getTarget();
+        Vec2 p=bodies[i].getPosition();
+       p_targets[i].setTarget(new Vec2(pos.x, wp(i)/box2d.scaleFactor - p.y));//new Vec2(pos.x, 0));//wp(i)/box2d.scaleFactor));
+    }
+  }
+
   void display() {
-    step++;
     stroke(0);
     strokeWeight(1);
-    for (int i=1; i < wave.length; i++)
-    {
-      rect(s*(i-1)- s/2, wave[i-1]- 100,s,200);
+ 
+    for(int i=0; i< bodies.length; ++i){
+      Vec2 pos = box2d.getBodyPixelCoord(bodies[i]);
+      //the fuck 
+      rect(pos.x+s/4, pos.y+bh/4, s*0.8, bh); 
     }
-    
-    
-    b.setLinearVelocity(new Vec2(0,(float)(Math.sin(step))*30));
-     
-    
   }
 }
