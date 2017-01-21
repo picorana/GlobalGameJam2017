@@ -4,8 +4,10 @@ void keyPressed() {
   {
   case START:
     {
-      if (keyCode=='S' || keyCode=='s')
+      if (keyCode=='S' || keyCode=='s') {
+        p = new Piscina();
         statoGioco = Schermata.GIOCO;
+      }
     }
 
   case GIOCO:

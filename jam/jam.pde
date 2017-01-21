@@ -30,7 +30,6 @@ void draw()
       textSize(32);
       fill(50);
       text("Press s to start a new game", 10, 30);
-      p = new Piscina();
       break;
     }
 
