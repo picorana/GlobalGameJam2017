@@ -7,6 +7,7 @@ public class Piscina
   Wave wave;
   Bomb b;
   Timer time;
+  PImage bomb;
   
   FisicaSaltarane fs;
 
@@ -25,6 +26,8 @@ public class Piscina
       }
     b = new Bomb(NUM_RIGHE,TILESIZE);
     time = new Timer();
+    
+    bomb = loadImage("Pong.png");
   }
 
   public void display()
@@ -43,7 +46,9 @@ public class Piscina
       float isox = TILESIZE*(ball_p[0] - ball_p[1]) / 2.0;
       float isoy = TILESIZE*(ball_p[0] + ball_p[1]) / 4.0;
       isoy -= ball_p[2];
-      ellipse(isox, isoy, 4, 4);
+      imageMode(CENTER);
+      image(bomb, isox, isoy, 40,40);
+      imageMode(CORNER);
 
     }
     popMatrix();

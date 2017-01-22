@@ -1,3 +1,5 @@
+import processing.sound.*;
+
 //import processing.sound.*;
 
 import java.util.List;
@@ -34,7 +36,7 @@ void setup()
   oscP5 = new OscP5(this, 12000);
   myRemoteLocation = new NetAddress("127.0.0.1", 12000);
   explosion = new Animator("Explosion", "png", 12);  
-  sounds = new Sound_Player(this, "lego_waves_intro.wav", "lego_waves_loop.wav", "boing.wav", "explosion.wav", "salto.wav");
+  sounds = new Sound_Player(this, "lego_waves_intro.wav", "lego_waves_loop.wav", "boing.wav", "esplosione.wav", "salto.wav", "rane.wav", "game_over.wav");
  
  pospos = 0; // CANCELLARE!!
  explosion.start();
