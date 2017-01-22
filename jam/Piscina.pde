@@ -44,6 +44,7 @@ public class Piscina
   }
   
   boolean expl_now=false;
+  
   int expx=0;
   int expy=0;
   
@@ -58,7 +59,7 @@ public class Piscina
     for (Tile t : acqua)
       t.display();
       
-    {
+    if(!expl_now){
       float[] ball_p = fs.getBallPos();
       float isox = TILESIZE*(ball_p[0] - ball_p[1]) / 2.0;
       float isoy = TILESIZE*(ball_p[0] + ball_p[1]) / 4.0;
@@ -72,18 +73,20 @@ public class Piscina
       popMatrix();
       imageMode(CORNER);
       
-      if(!expl_now && ball_p[0]<0){
+      if(ball_p[0]<0){
         expl_now=true;
         explosion.start();
         expx=350;
         expy=250;
+        p1.die();
       }
       
-      if(!expl_now && ball_p[0]>fs.wf.wave.x){
+      if(ball_p[0]>fs.wf.wave.x){
         expl_now=true;
         explosion.start();
         expx=100;
         expy=400;
+        p2.die();
       }
     }
     popMatrix();
@@ -104,19 +107,23 @@ public class Piscina
 
   void pushInWaterLeft(float intensity)
   {
-    p1.jump();
-    int x=(int)Math.floor(0.1*wave.x);
-    for (int y=(int)Math.floor(0.3*wave.y); y<Math.ceil(0.7*wave.y); ++y) {
-      wave.p(x, y, wave.p(x, y)+intensity);
+    if(p2.alive){
+      p2.jump();
+      int x=(int)Math.floor(0.95*wave.x);
+      for (int y=(int)Math.floor(0.3*wave.y); y<Math.ceil(0.7*wave.y); ++y) {
+        wave.p(x, y, wave.p(x, y)+intensity);
+      }
     }
   }
 
   void pushInWaterRight(float intensity)
   {
-    p2.jump();
-    int x=(int)Math.floor(0.9*wave.x);
-    for (int y=(int)Math.floor(0.3*wave.y); y<Math.ceil(0.7*wave.y); ++y) {
-      wave.p(x, y, wave.p(x, y)+intensity);
+    if(p1.alive){
+      p1.jump();
+      int x=(int)Math.floor(0.05*wave.x);
+      for (int y=(int)Math.floor(0.3*wave.y); y<Math.ceil(0.7*wave.y); ++y) {
+        wave.p(x, y, wave.p(x, y)+intensity);
+      }
     }
   }
 }

@@ -6,6 +6,7 @@ public class FrogTile extends Tile
   float frogY;
   float gravity = 1.0;
   float offsetJump = 0.0;
+  boolean alive=true;
   FrogTile(float x, float y, int indexX, int indexY, FisicaSaltarane fs, PImage frogImage) {
     super(x, y, indexX, indexY, fs);
     this.frogImage = frogImage;
@@ -20,16 +21,22 @@ public class FrogTile extends Tile
   {
     super.display();
     this.update();
-    float dx = super.isoX -frogX;
-    float dy = super.isoY -frogY;
-    frogX += dx * easing;
-    frogY += dy * easing;
-    image(frogImage, frogX, frogY - 30 + offsetJump);
+    if(alive){
+      float dx = super.isoX -frogX;
+      float dy = super.isoY -frogY;
+      frogX += dx * easing;
+      frogY += dy * easing;
+      image(frogImage, frogX, frogY - 30 + offsetJump);
+    }
   }
   
   public void jump()
   {
     offsetJump = -30.0;
+  }
+  
+  public void die(){
+    this.alive=false;  
   }
   
   public void update()

@@ -15,11 +15,11 @@ void keyPressed() {
         gameOver();
       
       if(keyCode==LEFT){
-        p.pushInWaterLeft(-5);
+        p.pushInWaterLeft(-5.5 + random(-0.5, 0.5));
       }
 
       if(keyCode==RIGHT){
-        p.pushInWaterRight(-5);
+        p.pushInWaterRight(-5.5+ random(-0.5, 0.5));
       }
 
       if (keyCode=='S' || keyCode=='s') 
