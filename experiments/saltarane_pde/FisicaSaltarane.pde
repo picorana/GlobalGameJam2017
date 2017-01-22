@@ -4,7 +4,7 @@ import org.jbox2d.common.*;
 import org.jbox2d.dynamics.*;
 import org.jbox2d.dynamics.joints.*;
 
-class FisicaSaltarane(){
+class FisicaSaltarane{
   
   Box2DProcessing box2d;
   Body ball;
@@ -14,23 +14,25 @@ class FisicaSaltarane(){
   
   float x_l;
   float y_l;
-  float layer;
-  FisicaSaltarane(int x, int y){
+  int layer;
+  FisicaSaltarane(PApplet p, int x, int y){
     x_l=x;
     y_l=y;
 
-    layer = round(y/2.);
+    layer = (int)round(y/2.);
     wave=new Wave(x, y);
-    box2d = new Box2DProcessing(this, 1);
-  
+    box2d = new Box2DProcessing(p, 1);
     box2d.createWorld();
     box2d.setGravity(0, 0);
-    b = makeBall(x/2., 0, 3/2.);
-    wf = new NewWaveFront(wave, layer);
+    
+    wf = new NewWaveFront(box2d, wave, layer);
+
+    ball = makeBall(x/2., -3*wf.boxheight, 2/2.);
     
   }
   
   Body makeBall(float x, float y, float radius){
+    Body body;
     float r= radius;
     // Define and create the body
     BodyDef bd = new BodyDef();
@@ -52,24 +54,25 @@ class FisicaSaltarane(){
 
     // Attach fixture to body
     body.createFixture(fd);
+    return body;
   }
   
-  update(){
+  void update(){
     wf.update();
     
-    b.body.applyForceToCenter(new Vec2(0, -40));
+    ball.applyForceToCenter(new Vec2(0, 1000));
     box2d.step();
+    
   }
   
   float getWavePos(int x, int y){
-        
-    
+    return wf.getWavePos(x, y);
   }
   
   float[] getBallPos(){
     Vec2 pos= ball.getPosition();
     
-    return new float[]{pos.x, layer, pos.y}
+    return new float[]{pos.x, layer, pos.y};
     
     
   }

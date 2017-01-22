@@ -6,11 +6,12 @@ FisicaSaltarane fs;
 void setup() {
   size(800, 600);
   
+  fs=new FisicaSaltarane(this, 36, 12);
   
-  wave=fs.wave
-  wave.p(10, 10, 10);
-  wave.p(30, 5, 70);
-  wave.p(10, 30, -40);
+  wave=fs.wave;
+  wave.p(10, 10, 0);
+  wave.p(30, 5, 0);
+  wave.p(10, 30, 0);
 
 }
 
@@ -18,24 +19,36 @@ void setup() {
 boolean left_arrow_pressed=false;
 boolean right_arrow_pressed=false;
 void draw() {
-  //scale(0.3);
+  translate(200, 500);
+  scale(10);
   fill(0);
   if(left_arrow_pressed){ 
-    int x=(int)Math.floor(0.1*wave.x);
-    for(int y=(int)Math.floor(0.3*wave.y); y<Math.ceil(0.7*wave.y); ++y){
-      wave.p(x, y, wave.p(x, y)+15);
+    int x=(int)Math.round(0.1*wave.x);
+    for(int y=(int)Math.round(0.3*wave.y); y<Math.round(0.7*wave.y); ++y){
+      wave.p(x, y, wave.p(x, y)+0.8);
     }
   }
   if(right_arrow_pressed){
-    int x=(int)Math.floor(0.9*wave.x);
-    for(int y=(int)Math.floor(0.3*wave.y); y<Math.ceil(0.7*wave.y); ++y){
-      wave.p(x, y, wave.p(x, y)+15);
+    int x=(int)Math.round(0.9*wave.x);
+    for(int y=(int)Math.round(0.3*wave.y); y<Math.round(0.7*wave.y); ++y){
+      wave.p(x, y, wave.p(x, y)+0.4);
     }
   }
 
   background(200);
 
   fs.update();
+  
+  
+  float[] bp=fs.getBallPos();
+  
+  ellipse(bp[0], bp[2], 3, 3);
+  
+  for(int xi=0; xi<36; ++xi){
+    float y= fs.getWavePos(xi, fs.layer);
+    float bh = fs.wf.boxheight;
+    rect(xi-0.5, y-bh/2, 1, bh);
+  }
 }
 
 void keyPressed() {

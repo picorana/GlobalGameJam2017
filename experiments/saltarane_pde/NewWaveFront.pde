@@ -1,8 +1,7 @@
 
 class NewWaveFront {
   float s;
-  float bh = 10;
-  
+  float boxheight = 10;
   Wave wave;
   int layer;
   
@@ -11,13 +10,15 @@ class NewWaveFront {
   Body anchor;
   PrismaticJoint pistons[];
   MouseJoint p_targets[];
-  NewWaveFront(Wave wave) {
-
+  
+  Box2DProcessing box2d;
+  NewWaveFront(Box2DProcessing bx, Wave wave, int layer) {
+    
+    box2d=bx;
     this.wave = wave;
-    this.layer= round(wave.y/2);
-    s = (float)(width)/wave.x;
+    this.layer= layer;
+//    s = (float)(width)/wave.x;
 
-    System.out.println(s);
     
     Filter nc_filt = new Filter();
     nc_filt.groupIndex = -1;
@@ -30,26 +31,30 @@ class NewWaveFront {
     {
     BodyDef bd = new BodyDef();
     bd.type = BodyType.STATIC;
-    bd.position.set(box2d.coordPixelsToWorld(width/2, -height));
+    bd.position.set(-2*width, -2*height);    //get it away from here
     anchor = box2d.createBody(bd);
     PolygonShape sh = new PolygonShape();
-    sh.setAsBox(box2d.scalarPixelsToWorld(width/2), box2d.scalarPixelsToWorld(5));
+    sh.setAsBox(width/2, 5);
     anchor.createFixture(sh, 1).setFilterData(nc_filt);
+    
     }
     for(int i= 0; i<bodies.length; ++i){
       BodyDef bd = new BodyDef();
-      bd.type = BodyType.DYNAMIC;
+      bd.type = BodyType.KINEMATIC;
 
-      bd.position.set(box2d.coordPixelsToWorld(s*i, wp(i)));
+      bd.position.set(i, wp(i));
+      bd.linearDamping=0.8f;
+      bd.bullet=true;
 
       bodies[i] = box2d.createBody(bd);
       shapes[i] = new PolygonShape();
-      shapes[i].setAsBox(box2d.scalarPixelsToWorld(s), box2d.scalarPixelsToWorld(bh));
+      shapes[i].setAsBox(1./2 , boxheight/2.);
       
-      bodies[i].createFixture(shapes[i], 1).setFilterData(nc_filt);
+      bodies[i].createFixture(shapes[i], 300).setFilterData(nc_filt);
       
       PrismaticJointDef pjd= new PrismaticJointDef();
-      pjd.initialize(anchor, bodies[i], box2d.coordPixelsToWorld(s*i, height), new Vec2(0, 1));
+                                                 //0 here was heigth
+      pjd.initialize(anchor, bodies[i], new Vec2(i, 0), new Vec2(0, 1));
       pjd.enableLimit=false;
       pjd.enableMotor=false;
       pjd.collideConnected=false;
@@ -61,34 +66,39 @@ class NewWaveFront {
       mjd.bodyA=anchor;
       mjd.collideConnected=false;
       //mjd.target=box2d.coordPixelsToWorld(s*i, wp(i));
-      mjd.maxForce=bodies[i].getMass()*1000;
+      mjd.maxForce=bodies[i].getMass()*2000;
       mjd.dampingRatio=0.8;
       p_targets[i]=(MouseJoint)box2d.createJoint(mjd);
+      p_targets[i].setTarget(new Vec2(0, wp(i)));
     }
   }
 
   float wp(int x){
-//    return 400;
-    return wave.p(x, layer)/10 + 800;
+    return (x< wave.x)? wave.p(x, layer): 0;//-boxheight;
+  }
+
+  void wp(int x, float val){
+    wave.p(x, layer, val);//-boxheight;
   }
 
   void update(){
-    wave.update(0.05); 
+    wave.update(0.02); 
     for(int i=0; i<bodies.length; ++i){
-        Vec2 pos=p_targets[i].getTarget();
-        Vec2 p=bodies[i].getPosition();
-       p_targets[i].setTarget(new Vec2(pos.x, wp(i)/box2d.scaleFactor - p.y));//new Vec2(pos.x, 0));//wp(i)/box2d.scaleFactor));
+//       Vec2 pos=p_targets[i].getTarget();
+//       Vec2 p=bodies[i].getPosition();
+       //p_targets[i].setTarget(new Vec2(pos.x, wp(i) - p.y));
+
+       p_targets[i].setTarget(new Vec2(0, wp(i)));
+       //wp(i, (p.y-wp(i))/10. + wp(i));
     }
   }
 
-  void display() {
-    stroke(0);
-    strokeWeight(1);
- 
-    for(int i=0; i< bodies.length; ++i){
-      Vec2 pos = box2d.getBodyPixelCoord(bodies[i]);
-      //the fuck 
-      rect(pos.x+s/4, pos.y+bh/4, s*0.8, bh); 
+  
+  float getWavePos(int x, int y) {
+    if(y!=layer){
+      return wave.p(x, y);
+    }else{
+      return bodies[x].getPosition().y - boxheight/4.;  
     }
   }
 }
