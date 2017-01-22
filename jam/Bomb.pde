@@ -7,8 +7,6 @@ class Bomb {
   public Bomb(int fieldLength, int stepLength) {
     this.fieldLength = fieldLength;
     this.stepLength = stepLength;
-    println("game start");
-    println("start position: "+this.position);
   }
   
   public void reset() {
