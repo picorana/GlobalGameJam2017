@@ -13,7 +13,7 @@ PImage frogImage;
 Piscina p;
 Schermata statoGioco = Schermata.START;
 
-//Sound_Player sounds;
+Sound_Player sounds;
 
 void setup()
 {
@@ -31,7 +31,7 @@ void setup()
   oscP5 = new OscP5(this, 12000);
   myRemoteLocation = new NetAddress("127.0.0.1", 12000);
   
-  //sounds = new Sound_Player(this, "song_intro.vaw", "song_body.wav", "boing.wav", "explosion.wav");
+  sounds = new Sound_Player(this, "lego_waves_intro.vaw", "lego_waves_loop.wav", "boing.wav", "explosion.wav");
 }
 
 void draw()
@@ -96,7 +96,7 @@ void startGame()
 {
   p = new Piscina(this);
   statoGioco = Schermata.GIOCO;
-  //sounds.playSong();
+  sounds.playSong();
 }
 
 
