@@ -1,6 +1,6 @@
     public class Timer {
         private int ms = 60000;
-        private int lasmillis;
+        private int lastmillis;
 
         public Timer() {
             this.lastmillis = millis();

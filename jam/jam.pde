@@ -59,9 +59,9 @@ void oscEvent(OscMessage theOscMessage) {
       int player = theOscMessage.get(0).intValue();  // get the first osc argument
       String direction = theOscMessage.get(1).stringValue(); // get the second osc argument
       float intensity = theOscMessage.get(2).floatValue(); // get the third osc argument
-      
-      
-      
+
+
+
       if (player == 1)
         p.pushInWaterLeft(intensity);
       else
@@ -69,4 +69,19 @@ void oscEvent(OscMessage theOscMessage) {
       return;
     }
   }
+}
+
+
+
+
+void startGame()
+{
+  p = new Piscina();
+  statoGioco = Schermata.GIOCO;
+}
+
+
+void gameOver()
+{
+  statoGioco = Schermata.GAMEOVER;
 }
