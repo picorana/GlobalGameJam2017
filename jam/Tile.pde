@@ -6,15 +6,15 @@ public class Tile
   float isoY = 0;
   int indexX;
   int indexY;
-  Wave wave;
+  FisicaSaltarane fs;
   
-  Tile(float x, float y,int indexX, int indexY,Wave wave) {
+  Tile(float x, float y,int indexX, int indexY, FisicaSaltarane fs) {
     location = new PVector();
     location.x = x;
     location.y = y;
     this.indexX = indexX;
     this.indexY = indexY;
-    this.wave = wave;
+    this.fs = fs;
   }
 
    PVector toIsometric(PVector v)
@@ -30,7 +30,7 @@ public class Tile
   {
    PVector isoL = toIsometric(location);
    isoX = isoL.x;
-   isoY = isoL.y - wave.p(indexX, indexY);
+   isoY = isoL.y - fs.getWavePos(indexX, indexY);
    image(photoTileBlu, isoX, isoY);
   }
 }
