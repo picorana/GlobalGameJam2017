@@ -54,6 +54,7 @@ class FisicaSaltarane{
 
     // Attach fixture to body
     body.createFixture(fd);
+//    body.applyAngularImpulse(300);
     return body;
   }
   
@@ -71,8 +72,9 @@ class FisicaSaltarane{
   
   float[] getBallPos(){
     Vec2 pos= ball.getPosition();
+    float rot= ball.getAngle();
     
-    return new float[]{pos.x, layer, pos.y};
+    return new float[]{pos.x, layer, pos.y, rot};
     
     
   }
