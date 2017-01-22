@@ -6,7 +6,7 @@ FisicaSaltarane fs;
 void setup() {
   size(800, 600);
   
-  fs=new FisicaSaltarane(this, 36, 12);
+  fs=new FisicaSaltarane(this, 48, 12);
   
   wave=fs.wave;
   wave.p(10, 10, 0);
@@ -42,9 +42,9 @@ void draw() {
   
   float[] bp=fs.getBallPos();
   
-  ellipse(bp[0], bp[2], 3, 3);
+  ellipse(bp[0]-1, bp[2]-1, 2, 2);
   
-  for(int xi=0; xi<36; ++xi){
+  for(int xi=0; xi<fs.wf.wave.x; ++xi){
     float y= fs.getWavePos(xi, fs.layer);
     float bh = fs.wf.boxheight;
     rect(xi-0.5, y-bh/2, 1, bh);
@@ -58,6 +58,10 @@ void keyPressed() {
   
   if(keyCode==RIGHT){
     right_arrow_pressed=true;
+  }
+  
+  if(keyCode==UP){
+    setup();  
   }
 }
 

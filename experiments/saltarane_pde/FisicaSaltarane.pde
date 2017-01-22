@@ -23,7 +23,7 @@ class FisicaSaltarane{
     wave=new Wave(x, y);
     box2d = new Box2DProcessing(p, 1);
     box2d.createWorld();
-    box2d.setGravity(0, 0);
+    box2d.setGravity(0, 200);
     
     wf = new NewWaveFront(box2d, wave, layer);
 
@@ -48,9 +48,9 @@ class FisicaSaltarane{
     FixtureDef fd = new FixtureDef();
     fd.shape = cs;
   
-    fd.density = 1;
+    fd.density = 20;
     fd.friction = 0;  // Slippery when wet!
-    fd.restitution = 0.5;
+    fd.restitution = 0.2;
 
     // Attach fixture to body
     body.createFixture(fd);
@@ -60,7 +60,7 @@ class FisicaSaltarane{
   void update(){
     wf.update();
     
-    ball.applyForceToCenter(new Vec2(0, 1000));
+//    ball.applyForceToCenter(new Vec2(0, 1000));
     box2d.step();
     
   }

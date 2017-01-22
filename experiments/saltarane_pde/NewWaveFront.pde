@@ -41,35 +41,13 @@ class NewWaveFront {
     for(int i= 0; i<bodies.length; ++i){
       BodyDef bd = new BodyDef();
       bd.type = BodyType.KINEMATIC;
-
       bd.position.set(i, wp(i));
-      bd.linearDamping=0.8f;
-      bd.bullet=true;
 
       bodies[i] = box2d.createBody(bd);
       shapes[i] = new PolygonShape();
       shapes[i].setAsBox(1./2 , boxheight/2.);
       
-      bodies[i].createFixture(shapes[i], 300).setFilterData(nc_filt);
-      
-      PrismaticJointDef pjd= new PrismaticJointDef();
-                                                 //0 here was heigth
-      pjd.initialize(anchor, bodies[i], new Vec2(i, 0), new Vec2(0, 1));
-      pjd.enableLimit=false;
-      pjd.enableMotor=false;
-      pjd.collideConnected=false;
-      pistons[i] = (PrismaticJoint)box2d.createJoint(pjd);
-      
-      
-      MouseJointDef mjd = new MouseJointDef();
-      mjd.bodyB=bodies[i];
-      mjd.bodyA=anchor;
-      mjd.collideConnected=false;
-      //mjd.target=box2d.coordPixelsToWorld(s*i, wp(i));
-      mjd.maxForce=bodies[i].getMass()*2000;
-      mjd.dampingRatio=0.8;
-      p_targets[i]=(MouseJoint)box2d.createJoint(mjd);
-      p_targets[i].setTarget(new Vec2(0, wp(i)));
+      bodies[i].createFixture(shapes[i], 30).setFilterData(nc_filt);
     }
   }
 
@@ -82,14 +60,10 @@ class NewWaveFront {
   }
 
   void update(){
-    wave.update(0.02); 
+    wave.update(0.05); 
     for(int i=0; i<bodies.length; ++i){
-//       Vec2 pos=p_targets[i].getTarget();
-//       Vec2 p=bodies[i].getPosition();
-       //p_targets[i].setTarget(new Vec2(pos.x, wp(i) - p.y));
-
-       p_targets[i].setTarget(new Vec2(0, wp(i)));
-       //wp(i, (p.y-wp(i))/10. + wp(i));
+       Vec2 p=bodies[i].getPosition();
+       bodies[i].setLinearVelocity(new Vec2(0, 60*(wp(i) - p.y)));
     }
   }
 
