@@ -132,7 +132,7 @@ class OscOperator(bpy.types.Operator):
 		self.dispatcher.map("/Chordata", osc_to_prop_quat, self.quat, self.pos)
 
 		#Start evetything
-		self.server = osc_server.OSCUDPServer(("10.42.0.1", 7000), self.dispatcher)
+		self.server = osc_server.OSCUDPServer(("192.168.142.126", 5555), self.dispatcher)
 		self.st = threading.Thread( target = self.server.serve_forever)
 		print("Serving on {}".format(self.server.server_address))
 		self.st.start()
