@@ -7,8 +7,6 @@ class Bomb {
   public Bomb(int fieldLength, int stepLength) {
     this.fieldLength = fieldLength;
     this.stepLength = stepLength;
-    println("game start");
-    println("start position: "+this.position);
   }
   
   public void reset() {
@@ -20,16 +18,11 @@ class Bomb {
   
   private void move(int steps) {
     this.position = this.position + this.stepLength * steps;
-    println("new position: "+this.position);
     if (position == fieldLength) {
       this.end = true;
-      println("right player win!");
-      this.reset();
     }
     else if (position == -fieldLength) {
       this.end = true;
-      println("left player win!");
-      this.reset();
     }
   }
   

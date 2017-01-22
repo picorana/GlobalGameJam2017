@@ -4,16 +4,16 @@ void keyPressed() {
   {
   case START:
     {
-      if (keyCode=='S' || keyCode=='s') {
-        p = new Piscina();
-        statoGioco = Schermata.GIOCO;
-      }
+      if (keyCode=='S' || keyCode=='s') 
+        startGame();
+      break;
     }
 
   case GIOCO:
     {
       if (keyCode=='t' || keyCode=='T')
-        statoGioco = Schermata.GAMEOVER;
+        gameOver();
+      break;
     }
 
   case GAMEOVER:
