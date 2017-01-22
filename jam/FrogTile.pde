@@ -7,5 +7,6 @@ public class FrogTile extends Tile
     public void display()
   {
     super.display();
+    image(frogImage,super.isoX,super.isoY);
   }
 }
