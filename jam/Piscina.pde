@@ -6,7 +6,7 @@ public class Piscina
   List<Tile> acqua = new ArrayList<Tile>();
   Wave wave;
   Bomb b;
-
+  Timer time;
 
   public Piscina()
   {
@@ -18,6 +18,7 @@ public class Piscina
         wave.p(i, j, random(-1, 1));
       }
     b = new Bomb(NUM_RIGHE,TILESIZE);
+    time = new Timer();
   }
 
   public void display()
@@ -27,11 +28,13 @@ public class Piscina
     for (Tile t : acqua)
       t.display();
     popMatrix();
+    time.display();
   }
 
   void update()
   {
     wave.update(0.04);
+    time.update();
   }
 
   void pushInWaterLeft(float intensity)

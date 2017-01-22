@@ -11,7 +11,7 @@ Piscina p;
 Schermata statoGioco = Schermata.START;
 void setup()
 {
-  size(800, 800);
+  size(1024, 800);
 
   photoTileBlu = loadImage("tile.png");
   oscP5 = new OscP5(this, 12000);

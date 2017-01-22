@@ -11,4 +11,12 @@
             ms -= delta;
             lastmillis = millis();
         }
+        
+        public void display()
+        {
+          float secondi = ms / 100;
+          secondi /= 10.0;
+          String timeString = Float.toString(secondi);
+          text(timeString, width/2, height / 10);
+        }
     }
