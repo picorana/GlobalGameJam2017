@@ -1,8 +1,8 @@
 public class Piscina
 {
-  int NUM_COLONNE = 32;
+  int NUM_COLONNE = 48;
   int NUM_RIGHE = 11;
-  int TILESIZE = 67;
+  int TILESIZE = 40;
   List<Tile> acqua = new ArrayList<Tile>();
   Wave wave;
   Bomb b;
@@ -27,8 +27,7 @@ public class Piscina
     image(renderBellissimo,-230,0);
     
     pushMatrix();
-    scale(0.3);
-    translate(width/2 + 1545, height/2+ 867);
+    translate(width/2/* + 1545*0.3*/, height/2 /*+ 867*0.3*/);
     for (Tile t : acqua)
       t.display();
     popMatrix();

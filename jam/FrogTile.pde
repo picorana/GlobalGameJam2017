@@ -1,5 +1,7 @@
 public class FrogTile extends Tile
 {
+  
+  
   FrogTile(float x, float y, int indexX, int indexY, Wave wave) {
     super(x, y, indexX, indexY, wave);
   } 
