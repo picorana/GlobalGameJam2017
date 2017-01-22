@@ -42,7 +42,11 @@ public class Piscina
     time = new Timer();
      bomb = loadImage("Pong.png");
   }
-
+  
+  boolean expl_now=false;
+  int expx=0;
+  int expy=0;
+  
   public void display()
   {
     image(renderBellissimo,-230,0);
@@ -67,10 +71,29 @@ public class Piscina
       image(bomb, isox, isoy, 40,40);
       popMatrix();
       imageMode(CORNER);
+      
+      if(!expl_now && ball_p[0]<0){
+        expl_now=true;
+        explosion.start();
+        expx=350;
+        expy=250;
+      }
+      
+      if(!expl_now && ball_p[0]>fs.wf.wave.x){
+        expl_now=true;
+        explosion.start();
+        expx=100;
+        expy=400;
+      }
     }
     popMatrix();
     image(downRenderBellissimo,-230,0);
     time.display();
+        if(expl_now){
+          if(!explosion.update(expx, expy)){
+             startGame(); 
+          }
+        }
   }
 
   void update()
