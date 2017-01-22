@@ -11,6 +11,10 @@ PImage renderBellissimo;
 PImage downRenderBellissimo;
 PImage frogImageFront;
 PImage frogImageBack;
+
+PImage title_screen;
+PImage over_screen;
+
 Piscina p;
 Schermata statoGioco = Schermata.START;
 Player p1;
@@ -25,6 +29,11 @@ void setup()
   textFont(font);
   photoTileBlu = loadImage("blocchetto.png");
   photoTileBlu.resize(0, 10);
+//  photoTileBlu = loadImage("blocchetto3.png");
+//  photoTileBlu.resize(0, 166);
+
+  title_screen = loadImage("title_inst.png");
+  over_screen = loadImage("gameover.png");
   renderBellissimo = loadImage("renderbellissimo.png");
   renderBellissimo.resize(0,height);
   downRenderBellissimo = loadImage("down.png");
@@ -47,9 +56,7 @@ void draw()
   {
   case START:
     {
-      textSize(32);
-      fill(50);
-      text("PRESS S TO START NEW GAME", 10, 30);
+      image(title_screen, (width-960)/2,(height-540)/2);
       break;
     }
 
@@ -62,10 +69,7 @@ void draw()
 
   case GAMEOVER:
     {
-      textSize(32);
-      fill(50);
-      text("PRESS C TO CONTINUE", 10, 30);
-      text("GAME OVER", 400, 300);
+      image(over_screen, (width-960)/2,(height-540)/2);
       break;
     }
   }
