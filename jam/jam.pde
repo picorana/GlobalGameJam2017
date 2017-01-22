@@ -18,7 +18,7 @@ void setup()
 
   font = createFont("Legothick.ttf", 10);
   textFont(font);
-  photoTileBlu = loadImage("tile.png");
+  photoTileBlu = loadImage("blocchetto.png");
   photoTileBlu.resize(0, 10);
   renderBellissimo = loadImage("renderbellissimo.png");
   renderBellissimo.resize(0,height);
