@@ -9,9 +9,12 @@ PFont font;
 PImage photoTileBlu;
 PImage renderBellissimo;
 PImage downRenderBellissimo;
-PImage frogImage;
+PImage frogImageFront;
+PImage frogImageBack;
 Piscina p;
 Schermata statoGioco = Schermata.START;
+Player p1;
+Player p2;
 void setup()
 {
   size(1024, 800);
@@ -24,7 +27,12 @@ void setup()
   renderBellissimo.resize(0,height);
   downRenderBellissimo = loadImage("down.png");
   downRenderBellissimo.resize(0,height);
-  frogImage = loadImage("froggo.png");
+  frogImageBack = loadImage("froggo.png");
+  frogImageBack.resize(0, 50);
+  frogImageFront = loadImage("froggo_front.png");
+  frogImageFront.resize(0, 50);
+  p1 = new Player(1,5555);
+  p2 = new Player(2,5556);
   oscP5 = new OscP5(this, 12000);
   myRemoteLocation = new NetAddress("127.0.0.1", 12000);
 }

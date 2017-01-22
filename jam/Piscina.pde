@@ -7,6 +7,8 @@ public class Piscina
   Wave wave;
   Bomb b;
   Timer time;
+  FrogTile p1;
+  FrogTile p2;
   
   FisicaSaltarane fs;
 
@@ -20,7 +22,20 @@ public class Piscina
     for (int i=0; i<NUM_COLONNE; i++) 
       for (int j=0; j<NUM_RIGHE; j++) 
       {
-        acqua.add(new Tile(j*TILESIZE ,(i*TILESIZE), j, i, fs));
+          if (j == 3 && i == 10)
+        {
+          p1 = new FrogTile(j*TILESIZE, (i*TILESIZE), j, i, fs,frogImageFront);
+          acqua.add(p1);
+          
+        }
+        else
+          if (j == 44 && i == 10)
+          {
+            p2 = new FrogTile(j*TILESIZE, (i*TILESIZE), j, i, fs,frogImageBack);
+            acqua.add(p2);
+          }
+        else
+          acqua.add(new Tile(j*TILESIZE ,(i*TILESIZE), j, i, fs));
         wave.p(j, i, random(-0.01, 0.01));
       }
     b = new Bomb(NUM_RIGHE,TILESIZE);
@@ -59,6 +74,7 @@ public class Piscina
 
   void pushInWaterLeft(float intensity)
   {
+    p1.jump();
     int x=(int)Math.floor(0.1*wave.x);
     for (int y=(int)Math.floor(0.3*wave.y); y<Math.ceil(0.7*wave.y); ++y) {
       wave.p(x, y, wave.p(x, y)+intensity);
@@ -67,6 +83,7 @@ public class Piscina
 
   void pushInWaterRight(float intensity)
   {
+    p2.jump();
     int x=(int)Math.floor(0.9*wave.x);
     for (int y=(int)Math.floor(0.3*wave.y); y<Math.ceil(0.7*wave.y); ++y) {
       wave.p(x, y, wave.p(x, y)+intensity);
