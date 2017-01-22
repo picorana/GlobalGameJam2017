@@ -15,10 +15,12 @@ Piscina p;
 Schermata statoGioco = Schermata.START;
 Player p1;
 Player p2;
+Animator explosion;
 void setup()
 {
   size(1024, 800);
 
+  explosion = new Animator("Explosion", "png", 12); 
   font = createFont("Legothick.ttf", 10);
   textFont(font);
   photoTileBlu = loadImage("blocchetto.png");
