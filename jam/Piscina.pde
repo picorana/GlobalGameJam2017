@@ -1,5 +1,6 @@
 public class Piscina
 {
+
   int NUM_COLONNE = 48;
   int NUM_RIGHE = 18;
   int TILESIZE = 13;
@@ -48,8 +49,19 @@ public class Piscina
     pushMatrix();
     //    scale(0.3);
     translate(width/2+110, height/2-18);
+    scale(-1, 1);
+
     for (Tile t : acqua)
       t.display();
+      
+    {
+      float[] ball_p = fs.getBallPos();
+      float isox = TILESIZE*(ball_p[0] - ball_p[1]) / 2.0;
+      float isoy = TILESIZE*(ball_p[0] + ball_p[1]) / 4.0;
+      isoy -= ball_p[2];
+      ellipse(isox, isoy, 4, 4);
+
+    }
     popMatrix();
     image(downRenderBellissimo, -230, 0);
     time.display();
@@ -64,8 +76,8 @@ public class Piscina
   void pushInWaterLeft(float intensity)
   {
     p1.jump();
-    int y=(int)Math.floor(0.1*wave.y);
-    for (int x=(int)Math.floor(0.3*wave.x); x<Math.ceil(0.7*wave.x); ++x) {
+    int x=(int)Math.floor(0.05*wave.x);
+    for (int y=(int)Math.floor(0.3*wave.y); y<Math.ceil(0.7*wave.y); ++y) {
       wave.p(x, y, wave.p(x, y)+intensity);
     }
   }
@@ -73,8 +85,8 @@ public class Piscina
   void pushInWaterRight(float intensity)
   {
     p2.jump();
-    int y=(int)Math.floor(0.9*wave.y);
-    for (int x=(int)Math.floor(0.3*wave.x); x<Math.ceil(0.7*wave.x); ++x) {
+    int x=(int)Math.floor(0.95*wave.x);
+    for (int y=(int)Math.floor(0.3*wave.y); y<Math.ceil(0.7*wave.y); ++y) {
       wave.p(x, y, wave.p(x, y)+intensity);
     }
   }

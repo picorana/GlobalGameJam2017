@@ -14,13 +14,8 @@ void keyPressed() {
       if (keyCode=='t' || keyCode=='T')
         gameOver();
       
-      if(keyCode==LEFT){
-        p.pushInWaterLeft(-5);
-      }
-
-      if(keyCode==RIGHT){
-        p.pushInWaterRight(-5);
-      }
+      if (keyCode=='S' || keyCode=='s') 
+        startGame();
 
       break;
     }
@@ -35,4 +30,14 @@ void keyPressed() {
 }
 
 void keyReleased() {
+  if(statoGioco==Schermata.GIOCO){
+      if(keyCode==LEFT){
+        p.pushInWaterRight(-2);
+      }
+
+      if(keyCode==RIGHT){
+        p.pushInWaterLeft(-2);
+      }
+    }
+
 }

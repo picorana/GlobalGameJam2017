@@ -13,6 +13,9 @@ PImage frogImageFront;
 PImage frogImageBack;
 Piscina p;
 Schermata statoGioco = Schermata.START;
+
+Sound_Player sounds;
+
 void setup()
 {
   size(1024, 800);
@@ -31,10 +34,16 @@ void setup()
   frogImageFront.resize(0, 50);
   oscP5 = new OscP5(this, 12000);
   myRemoteLocation = new NetAddress("127.0.0.1", 12000);
+  Player p1 = new Player(1,5555);
+  Player p2 = new Player(2,5556);
+  
+  sounds = new Sound_Player(this, "lego_waves_intro.vaw", "lego_waves_loop.wav", "boing.wav", "explosion.wav");
 }
 
+int i=0;
 void draw()
 {
+
   background(100);
 
 
@@ -50,8 +59,13 @@ void draw()
 
   case GIOCO:
     {
+//      scale(1.2f);
+//      scale(1+0.01*((float)Math.sin(++i/20.)));
+
       p.update();
       p.display();
+
+
       break;
     }
 
@@ -95,6 +109,7 @@ void startGame()
 {
   p = new Piscina(this);
   statoGioco = Schermata.GIOCO;
+  sounds.playSong();
 }
 
 
