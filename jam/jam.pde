@@ -30,6 +30,8 @@ void setup()
   frogImage = loadImage("froggo.png");
   oscP5 = new OscP5(this, 12000);
   myRemoteLocation = new NetAddress("127.0.0.1", 12000);
+  Player p1 = new Player(1,5555);
+  Player p2 = new Player(2,5556);
   
   sounds = new Sound_Player(this, "lego_waves_intro.vaw", "lego_waves_loop.wav", "boing.wav", "explosion.wav");
 }
