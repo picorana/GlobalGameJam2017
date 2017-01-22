@@ -18,6 +18,9 @@ class NewWaveFront {
     s = (float)(width)/wave.x;
 
     System.out.println(s);
+    
+    Filter nc_filt = new Filter();
+    nc_filt.groupIndex = -1;
 
     bodies=new Body[wave.x];
     shapes=new PolygonShape[bodies.length];
@@ -31,7 +34,7 @@ class NewWaveFront {
     anchor = box2d.createBody(bd);
     PolygonShape sh = new PolygonShape();
     sh.setAsBox(box2d.scalarPixelsToWorld(width/2), box2d.scalarPixelsToWorld(5));
-    anchor.createFixture(sh, 1);
+    anchor.createFixture(sh, 1).setFilterData(nc_filt);
     }
     for(int i= 0; i<bodies.length; ++i){
       BodyDef bd = new BodyDef();
@@ -41,9 +44,9 @@ class NewWaveFront {
 
       bodies[i] = box2d.createBody(bd);
       shapes[i] = new PolygonShape();
-      shapes[i].setAsBox(box2d.scalarPixelsToWorld(s/2), box2d.scalarPixelsToWorld(bh));
+      shapes[i].setAsBox(box2d.scalarPixelsToWorld(s), box2d.scalarPixelsToWorld(bh));
       
-      bodies[i].createFixture(shapes[i], 1);
+      bodies[i].createFixture(shapes[i], 1).setFilterData(nc_filt);
       
       PrismaticJointDef pjd= new PrismaticJointDef();
       pjd.initialize(anchor, bodies[i], box2d.coordPixelsToWorld(s*i, height), new Vec2(0, 1));

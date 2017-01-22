@@ -1,7 +1,7 @@
 public class Piscina
 {
-  int NUM_COLONNE = 10;
-  int NUM_RIGHE = 10;
+  int NUM_COLONNE = 12;
+  int NUM_RIGHE = 36;
   int TILESIZE = 65;
   List<Tile> acqua = new ArrayList<Tile>();
   Wave wave;

@@ -6,7 +6,7 @@ public class Tile
   int indexY;
   Wave wave;
   
-  Tile(float x, float y,int indexX, int indexY,Wave wave) {
+  Tile(float x, float y,int indexX, int indexY, Wave wave) {
     location = new PVector();
     location.x = x;
     location.y = y;
