@@ -2,6 +2,8 @@ public class Tile
 {
   static final int TILESIZE = 65;
   PVector location;
+  float isoX = 0;
+  float isoY = 0;
   int indexX;
   int indexY;
   Wave wave;
@@ -27,6 +29,8 @@ public class Tile
   void display()
   {
    PVector isoL = toIsometric(location);
-   image(photoTileBlu, isoL.x, isoL.y - wave.p(indexX, indexY));
+   isoX = isoL.x;
+   isoY = isoL.y - wave.p(indexX, indexY);
+   image(photoTileBlu, isoX, isoY);
   }
 }

@@ -10,6 +10,8 @@
             int delta = millis() - this.lastmillis;
             ms -= delta;
             lastmillis = millis();
+            if(ms < 0)
+                gameOver();
         }
         
         public void display()
@@ -17,6 +19,9 @@
           float secondi = ms / 100;
           secondi /= 10.0;
           String timeString = Float.toString(secondi);
-          text(timeString, width/2, height / 10);
+          strokeWeight(20);
+          //fill(255,255,255,127);
+          textSize(65);
+          text(timeString, width/2 - 20, height / 10);
         }
     }

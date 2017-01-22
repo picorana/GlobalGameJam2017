@@ -1,8 +1,8 @@
 public class Piscina
 {
-  int NUM_COLONNE = 10;
-  int NUM_RIGHE = 10;
-  int TILESIZE = 65;
+  int NUM_COLONNE = 32;
+  int NUM_RIGHE = 11;
+  int TILESIZE = 67;
   List<Tile> acqua = new ArrayList<Tile>();
   Wave wave;
   Bomb b;
@@ -10,12 +10,13 @@ public class Piscina
 
   public Piscina()
   {
-    wave=new Wave(NUM_COLONNE, NUM_RIGHE);
+    
+    wave=new Wave(NUM_RIGHE,NUM_COLONNE);
     for (int i=0; i<NUM_COLONNE; i++) 
       for (int j=0; j<NUM_RIGHE; j++) 
       {
-        acqua.add(new Tile(i*TILESIZE, j*TILESIZE, i, j, wave));
-        wave.p(i, j, random(-1, 1));
+        acqua.add(new Tile(j*TILESIZE ,(i*TILESIZE), j, i, wave));
+        wave.p(j, i, random(-1, 1));
       }
     b = new Bomb(NUM_RIGHE,TILESIZE);
     time = new Timer();
@@ -23,11 +24,15 @@ public class Piscina
 
   public void display()
   {
+    image(renderBellissimo,-230,0);
+    
     pushMatrix();
-    translate(width/2, height/2);
+    scale(0.3);
+    translate(width/2 + 1545, height/2+ 867);
     for (Tile t : acqua)
       t.display();
     popMatrix();
+    image(downRenderBellissimo,-230,0);
     time.display();
   }
 

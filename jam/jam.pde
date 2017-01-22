@@ -5,15 +5,25 @@ import netP5.*;
 OscP5 oscP5;
 NetAddress myRemoteLocation;
 
-
+PFont font;
 PImage photoTileBlu;
+PImage renderBellissimo;
+PImage downRenderBellissimo;
+PImage frogImage;
 Piscina p;
 Schermata statoGioco = Schermata.START;
 void setup()
 {
   size(1024, 800);
 
+  font = createFont("Legothick.ttf", 10);
+  textFont(font);
   photoTileBlu = loadImage("tile.png");
+  renderBellissimo = loadImage("renderbellissimo.png");
+  renderBellissimo.resize(0,height);
+  downRenderBellissimo = loadImage("down.png");
+  downRenderBellissimo.resize(0,height);
+  frogImage = loadImage("froggo.png");
   oscP5 = new OscP5(this, 12000);
   myRemoteLocation = new NetAddress("127.0.0.1", 12000);
 }
@@ -29,7 +39,7 @@ void draw()
     {
       textSize(32);
       fill(50);
-      text("Press s to start a new game", 10, 30);
+      text("PRESS S TO START NEW GAME", 10, 30);
       break;
     }
 
@@ -42,8 +52,10 @@ void draw()
 
   case GAMEOVER:
     {
-      text("Press c to continue", 10, 30);
-      text("GameOver", 400, 300);
+      textSize(32);
+      fill(50);
+      text("PRESS C TO CONTINUE", 10, 30);
+      text("GAME OVER", 400, 300);
       break;
     }
   }
