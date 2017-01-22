@@ -1,3 +1,5 @@
+//import processing.sound.*;
+
 import java.util.List;
 import oscP5.*;
 import netP5.*;
@@ -14,11 +16,12 @@ Piscina p;
 Schermata statoGioco = Schermata.START;
 
 Sound_Player sounds;
-
+Animator explosion;
+int pospos;
 void setup()
 {
   size(1024, 800);
-
+  
   font = createFont("Legothick.ttf", 10);
   textFont(font);
   photoTileBlu = loadImage("blocchetto.png");
@@ -30,14 +33,17 @@ void setup()
   frogImage = loadImage("froggo.png");
   oscP5 = new OscP5(this, 12000);
   myRemoteLocation = new NetAddress("127.0.0.1", 12000);
-  
-  sounds = new Sound_Player(this, "lego_waves_intro.vaw", "lego_waves_loop.wav", "boing.wav", "explosion.wav");
+  explosion = new Animator("Explosion", "png", 12);  
+  sounds = new Sound_Player(this, "lego_waves_intro.wav", "lego_waves_loop.wav", "boing.wav", "explosion.wav", "salto.wav");
+ 
+ pospos = 0; // CANCELLARE!!
+ explosion.start();
 }
 
 void draw()
 {
   background(100);
-
+  
 
   switch(statoGioco)
   {
@@ -53,6 +59,7 @@ void draw()
     {
       p.update();
       p.display();
+      explosion.update(pospos+200,200);
       break;
     }
 
