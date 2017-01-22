@@ -1,9 +1,9 @@
 class Wave{
   int x, y;
   float[] wave;  //p, p_, a
-  float restitution=0.995f;
-  float springiness=0.99f;
-  float returnosity=0.8f;
+  float restitution=0.998f;
+  float springiness=0.998f;
+  float returnosity=0.4f;
   float maxJerk=10;
   int iterations=10;
   Wave(int x, int y){

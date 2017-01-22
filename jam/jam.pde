@@ -29,8 +29,10 @@ void setup()
   myRemoteLocation = new NetAddress("127.0.0.1", 12000);
 }
 
+int i=0;
 void draw()
 {
+
   background(100);
 
 
@@ -46,8 +48,13 @@ void draw()
 
   case GIOCO:
     {
+//      scale(1.2f);
+//      scale(1+0.01*((float)Math.sin(++i/20.)));
+
       p.update();
       p.display();
+
+
       break;
     }
 

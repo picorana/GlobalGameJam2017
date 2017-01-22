@@ -59,7 +59,7 @@ public class Piscina
 
   void pushInWaterLeft(float intensity)
   {
-    int x=(int)Math.floor(0.1*wave.x);
+    int x=(int)Math.floor(0.05*wave.x);
     for (int y=(int)Math.floor(0.3*wave.y); y<Math.ceil(0.7*wave.y); ++y) {
       wave.p(x, y, wave.p(x, y)+intensity);
     }
@@ -67,7 +67,7 @@ public class Piscina
 
   void pushInWaterRight(float intensity)
   {
-    int x=(int)Math.floor(0.9*wave.x);
+    int x=(int)Math.floor(0.95*wave.x);
     for (int y=(int)Math.floor(0.3*wave.y); y<Math.ceil(0.7*wave.y); ++y) {
       wave.p(x, y, wave.p(x, y)+intensity);
     }
