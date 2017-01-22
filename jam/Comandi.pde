@@ -22,6 +22,9 @@ void keyPressed() {
         p.pushInWaterRight(-5);
       }
 
+      if (keyCode=='S' || keyCode=='s') 
+        startGame();
+
       break;
     }
 
