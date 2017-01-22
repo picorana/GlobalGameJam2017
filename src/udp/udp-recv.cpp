@@ -56,6 +56,10 @@ main(int argc, char **argv)
 		return 0;
 	}
 
+	int enable = 1;
+	if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &enable, sizeof(int)) < 0)
+	    error("setsockopt(SO_REUSEADDR) failed");
+
 	/* bind the socket to any valid IP address and a specific port */
 
 	memset((char *)&myaddr, 0, sizeof(myaddr));
