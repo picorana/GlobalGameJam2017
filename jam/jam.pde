@@ -18,7 +18,8 @@ void setup()
 
   font = createFont("Legothick.ttf", 10);
   textFont(font);
-  photoTileBlu = loadImage("tile.png");
+  photoTileBlu = loadImage("blocchetto.png");
+  photoTileBlu.resize(0, 10);
   renderBellissimo = loadImage("renderbellissimo.png");
   renderBellissimo.resize(0,height);
   downRenderBellissimo = loadImage("down.png");
@@ -31,8 +32,6 @@ void setup()
 void draw()
 {
   background(100);
-  translate(500, 100);
-  scale(0.4);
 
   switch(statoGioco)
   {
@@ -89,7 +88,7 @@ void oscEvent(OscMessage theOscMessage) {
 
 void startGame()
 {
-  p = new Piscina();
+  p = new Piscina(this);
   statoGioco = Schermata.GIOCO;
 }
 
