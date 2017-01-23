@@ -33,10 +33,10 @@ void setup()
   explosion = new Animator("Explosion", "png", 12); 
   font = createFont("Legothick.ttf", 10);
   textFont(font);
-  photoTileBlu = loadImage("blocchetto.png");
-  photoTileBlu.resize(0, 10);
-  //  photoTileBlu = loadImage("blocchetto3.png");
-  //  photoTileBlu.resize(0, 166);
+  photoTileBlu = loadImage("blocchetto5.png");
+  //photoTileBlu.resize(0, 10);
+    //photoTileBlu = loadImage("blocchetto3.png");
+    //photoTileBlu.resize(0, 166);
 
   title_screen = loadImage("title_inst.png");
   over_screen = loadImage("gameover.png");
