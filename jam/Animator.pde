@@ -30,7 +30,7 @@ boolean update(int x, int y){
 
  
   image(frames[round(counter/2)], x, y);
-  println(round(counter/2));
+  //println(round(counter/2));
   counter+=0.5;
   return true;
   
