@@ -1,3 +1,5 @@
+import processing.sound.*;
+
 import java.util.List;
 import oscP5.*;
 import netP5.*;
@@ -20,6 +22,10 @@ Schermata statoGioco = Schermata.START;
 Player p1;
 Player p2;
 Animator explosion;
+Sound_Player sounds;
+
+
+
 void setup()
 {
   size(1024, 800);
@@ -29,23 +35,24 @@ void setup()
   textFont(font);
   photoTileBlu = loadImage("blocchetto.png");
   photoTileBlu.resize(0, 10);
-//  photoTileBlu = loadImage("blocchetto3.png");
-//  photoTileBlu.resize(0, 166);
+  //  photoTileBlu = loadImage("blocchetto3.png");
+  //  photoTileBlu.resize(0, 166);
 
   title_screen = loadImage("title_inst.png");
   over_screen = loadImage("gameover.png");
   renderBellissimo = loadImage("renderbellissimo.png");
-  renderBellissimo.resize(0,height);
+  renderBellissimo.resize(0, height);
   downRenderBellissimo = loadImage("down.png");
-  downRenderBellissimo.resize(0,height);
+  downRenderBellissimo.resize(0, height);
   frogImageBack = loadImage("froggo.png");
   frogImageBack.resize(0, 50);
   frogImageFront = loadImage("froggo_front.png");
   frogImageFront.resize(0, 50);
-  p1 = new Player(1,5555);
-  p2 = new Player(2,5556);
+  p1 = new Player(1, 5555);
+  p2 = new Player(2, 5556);
   oscP5 = new OscP5(this, 12000);
   myRemoteLocation = new NetAddress("127.0.0.1", 12000);
+  sounds = new Sound_Player(this, "lego_waves_intro.wav", "lego_waves_loop.wav", "boing.wav", "esplosione.wav", "salto.wav", "rane.wav", "game_over.wav");
 }
 
 void draw()
@@ -56,7 +63,13 @@ void draw()
   {
   case START:
     {
-      image(title_screen, (width-960)/2,(height-540)/2);
+      imageMode(CENTER);
+      pushMatrix();
+      translate(width/2, height/2-45);
+      scale(1.33);
+      image(title_screen, 0, 0 );
+      popMatrix();
+      imageMode(CORNER);
       break;
     }
 
@@ -69,7 +82,7 @@ void draw()
 
   case GAMEOVER:
     {
-      image(over_screen, (width-960)/2,(height-540)/2);
+      image(over_screen, (width-960)/2, (height-540)/2);
       break;
     }
   }
@@ -102,8 +115,9 @@ void oscEvent(OscMessage theOscMessage) {
 
 void startGame()
 {
-  p = new Piscina(this);
+  p = new Piscina(this, sounds);
   statoGioco = Schermata.GIOCO;
+  sounds.playSong();
 }
 
 

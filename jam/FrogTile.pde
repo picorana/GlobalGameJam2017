@@ -1,5 +1,6 @@
 public class FrogTile extends Tile
 {
+  Sound_Player sound;
   PImage frogImage;
   float easing = 0.14;
   float frogX;
@@ -7,9 +8,10 @@ public class FrogTile extends Tile
   float gravity = 1.0;
   float offsetJump = 0.0;
   boolean alive=true;
-  FrogTile(float x, float y, int indexX, int indexY, FisicaSaltarane fs, PImage frogImage) {
+  FrogTile(float x, float y, int indexX, int indexY, FisicaSaltarane fs, PImage frogImage, Sound_Player s) {
     super(x, y, indexX, indexY, fs);
     this.frogImage = frogImage;
+    sound = s;
     frogX = x;
     frogY = y;
     
@@ -32,6 +34,7 @@ public class FrogTile extends Tile
   
   public void jump()
   {
+    sound.playBoing();
     offsetJump = -30.0;
   }
   

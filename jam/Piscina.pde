@@ -10,11 +10,13 @@ public class Piscina
   FrogTile p1;
   FrogTile p2;
   
+  Sound_Player sounds;
+  
   FisicaSaltarane fs;
   PImage bomb;
-  public Piscina(PApplet pa)
+  public Piscina(PApplet pa, Sound_Player sound)
   {
-    
+    sounds = sound;
     fs=new FisicaSaltarane(pa, NUM_RIGHE, NUM_COLONNE);
 
     wave=fs.wave;
@@ -24,14 +26,14 @@ public class Piscina
       {
           if (j == 3 && i == 10)
         {
-          p1 = new FrogTile(j*TILESIZE, (i*TILESIZE), j, i, fs,frogImageFront);
+          p1 = new FrogTile(j*TILESIZE, (i*TILESIZE), j, i, fs,frogImageFront, sound);
           acqua.add(p1);
           
         }
         else
           if (j == 44 && i == 10)
           {
-            p2 = new FrogTile(j*TILESIZE, (i*TILESIZE), j, i, fs,frogImageBack);
+            p2 = new FrogTile(j*TILESIZE, (i*TILESIZE), j, i, fs,frogImageBack, sound);
             acqua.add(p2);
           }
         else
@@ -76,16 +78,18 @@ public class Piscina
       if(ball_p[0]<0){
         expl_now=true;
         explosion.start();
-        expx=350;
-        expy=250;
+        sounds.playExplosion();
+        expx=350+ ((640-400)/2); //This extrange-looking expresions are just a result of resizing the image files :P
+        expy=250 + ((400-218)/2);
         p1.die();
       }
       
       if(ball_p[0]>fs.wf.wave.x){
         expl_now=true;
         explosion.start();
-        expx=100;
-        expy=400;
+        sounds.playExplosion();
+        expx=100 + ((640-400)/2);
+        expy=400 + ((400-218)/2);
         p2.die();
       }
     }
