@@ -33,7 +33,7 @@ void setup()
   explosion = new Animator("Explosion", "png", 12); 
   font = createFont("Legothick.ttf", 10);
   textFont(font);
-  photoTileBlu = loadImage("blocchetto5.png");
+  photoTileBlu = loadImage("blocchetto6.png");
   //photoTileBlu.resize(0, 10);
     //photoTileBlu = loadImage("blocchetto3.png");
     //photoTileBlu.resize(0, 166);
